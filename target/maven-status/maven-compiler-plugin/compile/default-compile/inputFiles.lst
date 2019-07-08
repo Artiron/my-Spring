@@ -1,0 +1,16 @@
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\controller\AuthorController.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\entity\Author.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\controller\RootConrtoller.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\service\api\AuthorService.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\config\WebConfig.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\service\impl\BookServiceImpl.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\config\AppInitializer.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\repository\api\BooksRepository.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\repository\impl\BooksRepositoryImpl.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\repository\impl\AuthorRepositoryImpl.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\service\api\BookService.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\service\impl\AuthorServiceImpl.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\repository\api\AuthorRepository.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\entity\Book.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\controller\BookController.java
+C:\Users\User\IdeaProjects\comRisa\src\main\java\library\config\HibernateConfig.java
