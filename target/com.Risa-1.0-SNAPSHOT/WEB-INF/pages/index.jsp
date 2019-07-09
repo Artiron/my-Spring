@@ -11,7 +11,7 @@
     <title>$Электронная библиотека$</title>
   </head>
   <body>
-  <h2><a href="/Books">Books</a> </h2>
-  <h2><a href="/Authors">Authors</a> </h2>
+  <h2><a href="${pageContext.request.contextPath}/books/">Books</a> </h2>
+  <h2><a href="${pageContext.request.contextPath}/authors/">Authors</a> </h2>
   </body>
 </html>

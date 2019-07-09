@@ -16,19 +16,20 @@
 <table>
     <tr>
         <th>id</th>
-        <th>name</th>
-        <th>countPage</th>
-        <th>year</th>
+        <th>Наименование</th>
+        <th>Количество страниц</th>
+        <th>Год</th>
     </tr>
     <c:forEach var="book" items="${booksList}">
         <tr>
             <td>${book.id}</td>
-            <td>${book.name}</td>
+            <td>${book.bookName}</td>
             <td>${book.countPage}</td>
             <td>${book.year}</td>
+            <td>${book.author.fullName}</td>
             <td>
-                <a href="/editPage/${book.id}">edit</a>
-                <a href="/delete/${book.id}">delete</a>
+                <a href="${pageContext.request.contextPath}/books/edit/${book.id}">edit</a>
+                <a href="${pageContext.request.contextPath}/books/delete/${book.id}">delete</a>
             </td>
         </tr>
     </c:forEach>
@@ -37,8 +38,7 @@
 
 
 <h2>Add</h2>
-<c:url value="/add" var="add"/>
-<a href="${add}">Add new book</a>
-<h2><a href="/">Назад</a></h2>
+<a href="${pageContext.request.contextPath}/books/add">Add new book</a>
+<h2><a href="${pageContext.request.contextPath}/">Назад</a></h2>
 </body>
 </html>

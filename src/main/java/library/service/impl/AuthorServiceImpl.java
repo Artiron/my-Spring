@@ -1,8 +1,9 @@
 package library.service.impl;
 
 import library.entity.Author;
-import library.repository.api.AuthorRepository;
-import library.repository.impl.AuthorRepositoryImpl;
+import library.mapper.api.AuthorMapper;
+import library.model.AuthorDto;
+import library.repository.AuthorRepository;
 import library.service.api.AuthorService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,32 +11,43 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class AuthorServiceImpl implements AuthorService {
-    private AuthorRepository authorRepository = new AuthorRepositoryImpl();
+    private AuthorMapper authorMapper;
+    private AuthorRepository authorRepository;
 
-    @Override
-    @Transactional
-    public List<Author> allAuthors() {
-        return authorRepository.allAuthors();
+    public AuthorServiceImpl(AuthorMapper authorMapper, AuthorRepository authorRepository) {
+        this.authorMapper = authorMapper;
+        this.authorRepository = authorRepository;
     }
 
     @Override
-    public void add(Author author) {
-        authorRepository.add(author);
+    public List<AuthorDto> allAuthors() {
+        List<Author> authors = authorRepository.findAll();
+        List<AuthorDto> authorDtos = authorMapper.toAuthorsDTO(authors);
+        return authorDtos;
     }
 
     @Override
-    public void delete(Author author) {
+    public void delete(AuthorDto authorDto) {
+        Author author  = authorMapper.toAuthor(authorDto);
         authorRepository.delete(author);
     }
 
     @Override
-    public void edit(Author author) {
-        authorRepository.edit(author);
+    public void deleteById(Long id) {
+        authorRepository.deleteById(id);
     }
 
     @Override
-    public Author getById(Long id) {
-        return authorRepository.getById(id);
+    public AuthorDto save(AuthorDto authorDto) {
+        Author author = authorMapper.toAuthor(authorDto);
+        return  authorMapper.toAuthorDTO(authorRepository.save(author));
+    }
+
+    @Override
+    public AuthorDto getById(Long id) {
+        return  authorMapper.toAuthorDTO(authorRepository.getOne(id));
+
     }
 }

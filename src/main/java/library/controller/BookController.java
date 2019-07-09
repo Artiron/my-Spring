@@ -1,8 +1,8 @@
 package library.controller;
 
-import library.entity.Book;
+import library.model.BookDto;
+import library.service.api.AuthorService;
 import library.service.api.BookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,57 +13,77 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
+@RequestMapping("/books")
 public class BookController {
 
-    @Autowired
-    private BookService bookService;
+    private final BookService bookService;
+    private final AuthorService authorService;
 
-    @RequestMapping(value = "/Books",method = RequestMethod.GET)
+    public BookController(BookService bookService, AuthorService authorService) {
+        this.bookService = bookService;
+        this.authorService = authorService;
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView allBooks() {
-        List<Book> books = bookService.allBooks();
+        List<BookDto> books = bookService.allBooks();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("books");
         modelAndView.addObject("booksList", books);
         return modelAndView;
     }
-    @RequestMapping(value = "/editPage/{id}", method = RequestMethod.GET)
-    public ModelAndView editPage(@PathVariable("id") Long id) {
-        Book book = bookService.getById(id);
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("editPage");
-        modelAndView.addObject("book", book);
-        modelAndView.addObject("book", bookService.getById(id));
-        return modelAndView;
-    }
-    @RequestMapping(value = "/editPage", method = RequestMethod.POST)
-    public ModelAndView editBook(@ModelAttribute("book") Book book) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/Books/");
-        bookService.edit(book);
-        return modelAndView;
-    }
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public ModelAndView addPage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("editPage");
-        return modelAndView;
-    }
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView addBook(@ModelAttribute("book") Book book) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/Books/");
-        bookService.add(book);
-        return modelAndView;
-    }
-    @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteBook(@PathVariable("id") Long id) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/Books/");
-        Book book = bookService.getById(id);
-        bookService.delete(book);
+
+    @RequestMapping(value = "getByAuthor/{id}", method = RequestMethod.GET)
+    public ModelAndView getByAuthor(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("books");
+        List<BookDto> booksList = bookService.getByAuthor(id);
+        modelAndView.addObject("booksList", booksList);
         return modelAndView;
     }
 
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public ModelAndView editPage(@PathVariable("id") Long id) {
+        BookDto book = bookService.getById(id);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("bookEditPage");
+        modelAndView.addObject("book", book);
+        modelAndView.addObject("authors", authorService.allAuthors());
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public ModelAndView editBook(@ModelAttribute("book") BookDto book) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/books/");
+        bookService.save(book);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public ModelAndView addPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("bookEditPage");
+        BookDto book = new BookDto();
+        modelAndView.addObject("book", book);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ModelAndView addBook(@ModelAttribute("book") BookDto book) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/books/");
+        bookService.save(book);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteBook(@PathVariable("id") Long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/books/");
+        BookDto book = bookService.getById(id);
+        bookService.delete(book);
+        return modelAndView;
+    }
 
 
 }

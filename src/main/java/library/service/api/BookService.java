@@ -1,17 +1,19 @@
 package library.service.api;
 
-import library.entity.Book;
+import library.model.BookDto;
 
 import java.util.List;
 
 public interface BookService {
-    List<Book> allBooks();
+    List<BookDto> allBooks();
 
-    void add(Book book);
+    BookDto save(BookDto book);
 
-    void delete(Book book);
+    List<BookDto> getByAuthor(Long id);
 
-    void edit(Book book);
+    void deleteById(Long id);
 
-    Book getById(Long id);
+    void delete(BookDto book);
+
+    BookDto getById(Long id);
 }

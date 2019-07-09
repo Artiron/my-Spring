@@ -13,8 +13,8 @@ public class Book {
     private Integer year;
     private Integer countPage;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "author_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id")
     private Author author;
 
     public Author getAuthor() {
@@ -23,9 +23,6 @@ public class Book {
 
     public void setAuthor(Author author) {
         this.author = author;
-    }
-
-    public Book() {
     }
 
     public Integer getYear() {

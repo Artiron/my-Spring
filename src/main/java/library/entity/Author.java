@@ -13,7 +13,7 @@ public class Author {
 
     private String fullName;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "author")
+    @OneToMany(mappedBy = "author")
     private Set<Book> books;
 
     public Set<Book> getBooks() {
@@ -22,10 +22,6 @@ public class Author {
 
     public void setBooks(Set<Book> books) {
         this.books = books;
-    }
-
-
-    public Author() {
     }
 
     public Long getId() {

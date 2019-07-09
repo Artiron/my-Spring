@@ -1,17 +1,17 @@
 package library.service.api;
 
-import library.entity.Author;
+import library.model.AuthorDto;
 
 import java.util.List;
 
 public interface AuthorService {
-    List<Author> allAuthors();
+    List<AuthorDto> allAuthors();
 
-    void add(Author author);
+    void delete(AuthorDto author);
 
-    void delete(Author author);
+    void deleteById(Long id);
 
-    void edit(Author author);
+    AuthorDto save(AuthorDto author);
 
-    Author getById(Long id);
+    AuthorDto getById(Long id);
 }

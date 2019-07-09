@@ -23,7 +23,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     }
 
 
-    protected javax.servlet.Filter[] getServletFilters() {
+    protected Filter[] getServletFilters() {
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
