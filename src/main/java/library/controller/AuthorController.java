@@ -43,7 +43,7 @@ public class AuthorController {
     @RequestMapping(value = "edit", method = RequestMethod.POST)
     public ModelAndView saveAuthor(@ModelAttribute AuthorDto author) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/");
+        modelAndView.setViewName("redirect:/authors/");
         authorService.save(author);
 
         return modelAndView;
